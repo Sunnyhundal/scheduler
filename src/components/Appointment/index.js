@@ -50,9 +50,11 @@ export default function Appointment(props) {
       .then(() => transition(EMPTY))
       .catch((error) => transition(ERROR_DELETE, true));
   }
-
+  console.log("props", props);
+  console.log(mode);
   return (
     <article className="appointment" data-testid="appointment">
+      <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
@@ -90,8 +92,7 @@ export default function Appointment(props) {
         <Error message="Could not cancel appointment." onClose={back} />
       )}
 
-      <Header time={props.time} />
-      {props.interview ? (
+      {/* {props.interview ? (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
@@ -100,7 +101,7 @@ export default function Appointment(props) {
         />
       ) : (
         <Empty onAdd={() => console.log("CREATE")} />
-      )}
+      )} */}
     </article>
   );
 }

@@ -3,7 +3,7 @@ import React from "react";
 import {
   getAppointmentsForDay,
   getInterviewersForDay,
-  getInterview
+  getInterview,
 } from "helpers/selectors";
 
 import useApplicationData from "hooks/useApplicationData";
@@ -12,24 +12,20 @@ import "components/Application.scss";
 
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-import useVisualMode from "hooks/useVisualMode";
 
 export default function Application(props) {
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  } = useApplicationData();
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
   const interviewers = getInterviewersForDay(state, state.day);
 
   const appointments = getAppointmentsForDay(state, state.day).map(
-    appointment => {
+    (appointment) => {
       return (
         <Appointment
           key={appointment.id}
-          {...appointment}
+          // {...appointment}
+          time={appointment.time}
           interview={getInterview(state, appointment.interview)}
           interviewers={interviewers}
           bookInterview={bookInterview}
@@ -38,7 +34,6 @@ export default function Application(props) {
       );
     }
   );
-
   return (
     <main className="layout">
       <section className="sidebar">
@@ -59,7 +54,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {appointments}
-        <Appointment key="last" time="5pm" />
+        {/* <Appointment key="last" time="5pm" /> */}
       </section>
     </main>
   );
